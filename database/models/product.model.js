@@ -7,10 +7,18 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    descrription: {
-      type: String,
-      required: true,
-    },
+    descrription: [
+      {
+        name: { type: String, required: true },
+        value: [
+          {
+            type: mongoose.Schema.Types.Mixed,
+            required: true,
+          },
+        ],
+        _id: false,
+      },
+    ],
     price: {
       type: Number,
       required: true,
@@ -31,21 +39,28 @@ const productSchema = new mongoose.Schema(
       ref: "SubCategory",
       required: true,
     },
-    attributes: {
-      type: Object,
-      default: {},
-    },
+    attributes: [
+      {
+        name: { type: String, required: true },
+        value: { type: mongoose.Schema.Types.Mixed, required: true },
+      },
+    ],
     finalPrice: {
       type: Number,
     },
     mainImage: {
       type: Object,
     },
-    subImages: [
-      {
-        type: Object,
-      },
-    ],
+    subImages: {
+      type: [Object],
+      default: [],
+    },
+
+    stock: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
   },
   {
     timestamps: true,

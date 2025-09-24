@@ -1,19 +1,19 @@
-import User from "../../../database/models/user.model.js";
+import { UserModel } from "../../../database/models/user.model.js";
 
 export const findUserByEmail = async (email) => {
-  return await User.findOne({ where: { email } });
+  return await UserModel.findOne({ email });
 };
 
 export const createUser = async (data) => {
-  const user = await User.create(data);
+  const user = await UserModel.create(data);
   return user;
 };
 
 export const confirmEmail = async (email, code) => {
-  await User.update(
+  await UserModel.update(
     { code: null, isConfirmed: true },
     {
       where: { email },
     }
-  );  
+  );
 };

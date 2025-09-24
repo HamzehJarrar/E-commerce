@@ -4,7 +4,8 @@ import { jwtGenerator } from "../../utils/jwt/jwtGenerator.js";
 import generateCode from "../../utils/generateCode.js";
 import { sendEmail } from "../../utils/email/nodemailer.js";
 import {AppError} from "../../utils/AppError.js";
-export const register = async ({ name, email, password, role = "student" }) => {
+import  ROLES  from "../../../database/roles.js";
+export const register = async ({ userName, email, password, role=ROLES.USER }) => {
   const userExists = await authQuery.findUserByEmail(email);
   if (userExists) {
     throw new AppError("User already exists", 409);
@@ -20,7 +21,7 @@ export const register = async ({ name, email, password, role = "student" }) => {
   });
 
   const newUser = await authQuery.createUser({
-    name,
+    userName,
     email,
     password: hashedPassword,
     code,
@@ -29,7 +30,7 @@ export const register = async ({ name, email, password, role = "student" }) => {
   });
   return newUser;
 };
-
+ 
 export const login = async ({ email, password }) => {
   const user = await authQuery.findUserByEmail(email);
 
