@@ -17,6 +17,10 @@ export const getCategoryByName = async (name) => {
   return await CategoryModel.findOne({ name, status: "active" });
 };
 
+export const existCategoryById = async (categoryId) => {
+  return await CategoryModel.findOne({ _id: categoryId });
+};
+
 export const getCategoryById = async (id) => {
   return await CategoryModel.findById(id)
     .lean()
