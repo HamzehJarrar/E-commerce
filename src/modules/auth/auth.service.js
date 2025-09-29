@@ -37,7 +37,7 @@ export const login = async ({ email, password }) => {
   if (!user) {
     throw new Error("Invalid credentials", 401);
   }
-  if (!user.isConfirmed) {
+  if (!user.confirmEmail) {
     throw new Error("Email is not confirmed", 401);
   }
 

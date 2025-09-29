@@ -28,10 +28,10 @@ const categorySchema = new mongoose.Schema(
         },
         options: {
           type: [String],
-          allowCustomValue: {
-            type: Boolean,
-            default: false,
-          },
+        },
+        allowCustomValue: {
+          type: Boolean,
+          default: false,
         },
       },
     ],
@@ -41,4 +41,6 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-export const CategoryModel = mongoose.model("Category", categorySchema);
+const CategoryModel = mongoose.model("Category", categorySchema);
+
+export default CategoryModel;

@@ -10,10 +10,10 @@ export const createUser = async (data) => {
 };
 
 export const confirmEmail = async (email, code) => {
-  await UserModel.update(
-    { code: null, isConfirmed: true },
-    {
-      where: { email },
-    }
+  const result = await UserModel.updateOne(
+    { email, code },
+    { $set: { confirmEmail: true, code: null } }
   );
+
+  return result.modifiedCount > 0;
 };
