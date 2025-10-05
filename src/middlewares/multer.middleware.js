@@ -3,7 +3,7 @@ import path from "path";
 import uploadDir from "../../config.js";
 import fs from "fs";
 
-const fileType = {
+export const fileType = {
   image: ["image/png", "image/jpg", "image/jpeg"],
   files: ["application/pdf"],
 };

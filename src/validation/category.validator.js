@@ -1,5 +1,6 @@
 import Joi from "joi";
 import objectId from "./objectId.validator.js";
+import multerFileSchema from "./image.validator.js";
 
 const attributesSchema = Joi.object({
   name: Joi.string().min(1).max(50).required(),
@@ -15,14 +16,14 @@ const attributesSchema = Joi.object({
 export const create = Joi.object({
   name: Joi.string().min(2).trim().max(50).required(),
   status: Joi.string().valid("active", "inactive"),
-  image: Joi.any().required(),
+  image: multerFileSchema.required(),
   attributes: Joi.array().items(attributesSchema).default([]),
 });
 
 export const update = Joi.object({
   name: Joi.string().min(2).trim().max(50).required(),
   status: Joi.string().valid("active", "inactive"),
-  image: Joi.any(),
+  image: multerFileSchema,
   attributes: Joi.array().items(attributesSchema).default([]),
   id: objectId.required(),
 });
@@ -30,3 +31,4 @@ export const update = Joi.object({
 export const categoryIdParams = Joi.object({
   id: objectId.required(),
 });
+

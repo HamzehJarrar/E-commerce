@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { imageSchema } from "./schemas/image.schema.js";
 
 const productSchema = new mongoose.Schema(
   {
@@ -23,7 +24,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    discoutn: {
+    discount: {
       type: Number,
       required: true,
       min: 0,
@@ -49,10 +50,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
     },
     mainImage: {
-      type: Object,
+      type: imageSchema,
     },
     subImages: {
-      type: [Object],
+      type: [imageSchema],
       default: [],
     },
 
@@ -66,5 +67,5 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-export const productModel = mongoose.model("Product", productSchema);
+const productModel = mongoose.model("Product", productSchema);
+export default productModel;

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { imageSchema } from "./schemas/image.schema.js";
 
 const categorySchema = new mongoose.Schema(
   {
@@ -8,7 +9,7 @@ const categorySchema = new mongoose.Schema(
       unique: true,
     },
     image: {
-      type: Object,
+      type: imageSchema,
       required: true,
     },
     status: {
@@ -26,12 +27,10 @@ const categorySchema = new mongoose.Schema(
           type: ["string", "number", "enum"],
           required: true,
         },
-        options: {
-          type: [String],
-        },
+        options: [String],
         allowCustomValue: {
           type: Boolean,
-          default: false,
+          default: true,
         },
       },
     ],

@@ -3,7 +3,7 @@ import * as controller from "./category.controller.js";
 import asyncHandler from "../../utils/asyncHandler.js";
 import authMiddleware from "../../middlewares/authMiddleWare.js";
 import Roles from "../../../database/roles.js";
-import upload from "../../middlewares/multer.js";
+import upload from "../../middlewares/multer.middleware.js";
 import { validate } from "../../middlewares/validation.js";
 import * as schema from "../../validation/category.validator.js";
 
@@ -21,9 +21,10 @@ router.get("/", asyncHandler(controller.getAllCategories));
 
 router.get(
   "/:id",
-  validate(schema.categoryIdParams),
+  validate(schema.categoryIdParams ),
   asyncHandler(controller.getCategoryById)
 );
+
 
 router.put(
   "/:id",

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import {imageSchema} from "./schemas/image.schema.js";
 const userSchema = new mongoose.Schema(
   {
     userName: {
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
     },
     image: {
-      type: Object,
+      type: imageSchema,
     },
     phone: {
       type: String,

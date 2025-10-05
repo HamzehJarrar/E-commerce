@@ -26,6 +26,7 @@ export const getAllCategories = async () => {
 
 export const getCategoryById = async (id) => {
   const category = await data.getCategoryById(id);
+  
   if (!category) {
     throw new AppError("Category not found", 404);
   }
