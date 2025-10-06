@@ -4,7 +4,7 @@ export const validate = (Schema) => (req, res, next) => {
       ...req.body,
       ...req.params,
       ...req.query,
-      ...(req.file && { image: req.file }), // ← فقط إذا موجود
+      ...(req.file && { image: req.file }), 
     };
 
     const { error } = Schema.validate(data, {
