@@ -22,10 +22,7 @@ router.post(
 router.get("/", asyncHandler(productController.getAllProducts));
 
 router.get("/:id", asyncHandler(productController.getProductById));
-router.put(
-  "/:id",
-  asyncHandler(productController.updateProduct)
-);
+router.put("/:id", asyncHandler(productController.updateProduct));
 
 router.delete(
   "/:id",
