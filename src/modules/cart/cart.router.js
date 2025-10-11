@@ -24,7 +24,7 @@ router.delete(
   asyncHandler(controller.removeFromCart)
 );
 
-router.delete("/clear", asyncHandler(controller.clearCart));
+router.delete("/clear", authMiddleware([Roles.USER]), asyncHandler(controller.clearCart));
 
 router.get(
   "/",

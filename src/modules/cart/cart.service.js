@@ -29,10 +29,14 @@ export const addToCart = async (userId, productData) => {
   return updatedCart;
 };
 
-export const getCartByUserId = async (userId) => {
+export const updateCart = async (userId, productCartId, qnt) => {};
+
+export const emptyCart = async (userId) => {
+  const cleared = await cartData.clearCart(userId);
+  return cleared;
+};
+
+export const getMyCart = async (userId) => {
   const cart = await cartData.getCart(userId);
-  if(!cart){
-    return {message: "Cart is empty", products: []};
-  }
-  return cart; 
+  return cart || { cart: [] };
 };

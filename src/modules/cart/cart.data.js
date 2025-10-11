@@ -25,4 +25,11 @@ export const updateProductQuantity = async (userId, productCartId, qnt) => {};
 
 export const removeProductFromCart = async (userId, productCartId) => {};
 
-export const clearCart = async (userId) => {};
+export const clearCart = async (userId) => {
+  return await CartModel.updateOne({userId},{
+    $set:{
+      products:[]
+      
+    }
+  })
+};
