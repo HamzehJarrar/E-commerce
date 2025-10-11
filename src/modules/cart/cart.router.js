@@ -3,12 +3,14 @@ import * as controller from "./cart.controller.js";
 import asyncHandler from "../../utils/asyncHandler.js";
 import authMiddleware from "../../middlewares/authMiddleWare.js";
 import Roles from "../../../database/roles.js";
-
+import { validate } from "../../middlewares/validation.js";
+import * as schema from "../../validation/cart.validator.js";
 const router = Router();
 
 router.post(
   "/add",
   authMiddleware([Roles.USER]),
+  validate(schema.addToCart),
   asyncHandler(controller.addToCart)
 );
 
@@ -24,7 +26,11 @@ router.delete(
   asyncHandler(controller.removeFromCart)
 );
 
-router.delete("/clear", authMiddleware([Roles.USER]), asyncHandler(controller.clearCart));
+router.delete(
+  "/clear",
+  authMiddleware([Roles.USER]),
+  asyncHandler(controller.clearCart)
+);
 
 router.get(
   "/",

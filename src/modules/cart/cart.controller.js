@@ -16,16 +16,28 @@ export const addToCart = async (req, res, next) => {
 };
 
 export const updateCart = async (req, res, next) => {
-  const { _id } = req.user.id;
+  const userId = req.user.id;
   const data = req.body;
-  const product = await cartService.updateCart(_id, data, data.qnt);
+  const product = await cartService.updateCart(
+    userId,
+    data.productCartId,
+    data.qnt
+  );
   res.status(200).json({
     message: "Cart updated successfully",
     data: product,
   });
 };
 
-export const removeFromCart = async (req, res, next) => {};
+export const removeFromCart = async (req, res, next) => {
+  const userId = req.user.id;
+  const data = req.body;
+  const product = await cartService.removeFromCart(userId, data.productCartId , data.qnt);
+  res.status(200).json({
+    message: "Product removed from cart successfully",
+    data: product,
+  });
+};
 
 export const clearCart = async (req, res, next) => {
   const id = req.user.id;

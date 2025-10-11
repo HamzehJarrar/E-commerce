@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import * as cartData from "./cart.data.js";
 import areAttributesEqual from "../../utils/areAttributesEqual.js";
+import { AppError } from "../../utils/AppError.js";
 
 export const addToCart = async (userId, productData) => {
   const mongoId = new mongoose.Types.ObjectId(userId);
@@ -29,8 +30,21 @@ export const addToCart = async (userId, productData) => {
   return updatedCart;
 };
 
-export const updateCart = async (userId, productCartId, qnt) => {};
+export const updateCart = async (userId, productCartId, qnt) => {
+  const updated = await cartData.updateProductQuantity(userId, productCartId, qnt);
+  if (!updated) {
+    throw new AppError("Product not found in cart");
+  }
+  return updated;
+};
 
+export const removeFromCart = async (userId, productCartId , qnt) => {
+  const removed = await cartData.removeProductFromCart(userId,productCartId , qnt);
+  if(!removed){
+    throw new AppError("Product not found in cart");
+  }
+  return removed;
+};
 export const emptyCart = async (userId) => {
   const cleared = await cartData.clearCart(userId);
   return cleared;

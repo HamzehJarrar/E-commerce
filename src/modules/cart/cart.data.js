@@ -21,15 +21,31 @@ export const pushProductToCart = async (cart, product) => {
   return await cart.save();
 };
 
-export const updateProductQuantity = async (userId, productCartId, qnt) => {};
+export const updateProductQuantity = async (userId, productCartId, qnt) => {
+  return await CartModel.findOneAndUpdate(
+    { userId, "products._id": productCartId },
+    {
+      $set: { "products.$.qnt": qnt },
+    },
+    { new: true }
+  );
+};
 
-export const removeProductFromCart = async (userId, productCartId) => {};
+export const removeProductFromCart = async (userId, productCartId, qnt) => {
+  return await CartModel.findOneAndUpdate(
+    { userId, "products._id": productCartId },
+    { $inc: { "products.$.qnt": -1 } },
+    { new: true }
+  );
+};
 
 export const clearCart = async (userId) => {
-  return await CartModel.updateOne({userId},{
-    $set:{
-      products:[]
-      
+  return await CartModel.updateOne(
+    { userId },
+    {
+      $set: {
+        products: [],
+      },
     }
-  })
+  );
 };
