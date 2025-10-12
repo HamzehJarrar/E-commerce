@@ -4,6 +4,7 @@ import categoryRouter from "../modules/category/category.router.js";
 import subcategoryRouter from "../modules/subcategory/subcategory.router.js";
 import productRouter from "../modules/product/product.router.js";
 import cartRouter from "../modules/cart/cart.router.js";
+import favoritRouter from "../modules/favorit/favorit.router.js";
 
 const init = (express, app) => {
   app.use(express.json());
@@ -13,6 +14,7 @@ const init = (express, app) => {
   app.use("/api/subcategories", subcategoryRouter);
   app.use("/api/products", productRouter);
   app.use("/api/cart", cartRouter);
+  app.use("/api/favorites", favoritRouter);
   app.use(globalErrorHandler);
 };
 export default init;

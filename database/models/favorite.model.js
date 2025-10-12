@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const favSchema = new mongoose.Schema(
   {
-    uesrId: {
+    userId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    product: [
+    products: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Product",
@@ -18,4 +18,4 @@ const favSchema = new mongoose.Schema(
     timeseries: true,
   }
 );
-export const FavoriteModel = mongoose.model("Favorite", favSchema);
+export const favoriteModel = mongoose.model("Favorite", favSchema);
