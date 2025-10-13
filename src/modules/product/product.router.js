@@ -10,12 +10,12 @@ const router = Router();
 
 router.post(
   "/",
-  authMiddlewareJWT([Roles.ADMIN]),
+  authMiddlewareJWT([Roles.USER]),
   upload.fields([
     { name: "mainImage", maxCount: 1 },
     { name: "subImages", maxCount: 5 },
   ]),
-  validate(schema.create),
+  // validate(schema.create),
   asyncHandler(productController.createProduct)
 );
 

@@ -10,7 +10,7 @@ const router = Router();
 router.post(
   "/add",
   authMiddleware([Roles.USER]),
-  validate(schema.addToCart),
+  // validate(schema.addToCart),
   asyncHandler(controller.addToCart)
 );
 

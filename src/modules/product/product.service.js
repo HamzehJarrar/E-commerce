@@ -4,9 +4,13 @@ import { AppError } from "../../utils/AppError.js";
 import { getSubCategoryForProduct } from "../subcategory/subcategory.data.js";
 import { getPaginationData } from "../../utils/pagination/pagination.js";
 import { getCategoryById } from "../category/category.data.js";
-import e from "express";
 
 export const createProduct = async (data) => {
+  if (data.categoryId) {
+    data.category = data.categoryId;
+    delete data.categoryId;
+  }
+
   const isValid = await validateAttributesByCategory(
     data.category,
     data.attributes
@@ -15,6 +19,7 @@ export const createProduct = async (data) => {
   if (!isValid) {
     throw new AppError("Invalid product attributes", 400);
   }
+
   const subCategory = await getSubCategoryForProduct(
     data.category,
     data.subCategoryId
@@ -24,7 +29,7 @@ export const createProduct = async (data) => {
     throw new AppError("Subcategory not found", 404);
   }
 
-  if (data.discount || data.discount > 0) {
+  if (data.discount && data.discount > 0) {
     data.finalPrice = data.price * (1 - data.discount / 100);
   }
 
@@ -90,10 +95,10 @@ export const updateProduct = async (id, body) => {
   return product;
 };
 
-export const deleteProduct = async(id)=>{
+export const deleteProduct = async (id) => {
   const isExist = await productData.getProductById(id);
-  if(!isExist){
+  if (!isExist) {
     throw new AppError("Product not found", 404);
   }
   return await productData.deleteProduct(id);
-}
+};

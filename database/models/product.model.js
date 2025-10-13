@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    descrription: [
+    description: [
       {
         name: { type: String, required: true },
         value: [
@@ -43,9 +43,10 @@ const productSchema = new mongoose.Schema(
     attributes: [
       {
         name: { type: String, required: true },
-        value: { type: mongoose.Schema.Types.Mixed, required: true },
+        values: [{ type: String, required: true }],
       },
     ],
+
     finalPrice: {
       type: Number,
     },

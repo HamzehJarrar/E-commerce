@@ -11,6 +11,10 @@ const productInCart = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
     attributes: {
       type: Map,
       of: String,
@@ -30,7 +34,7 @@ const cartSchema = new mongoose.Schema(
     products: [productInCart],
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 

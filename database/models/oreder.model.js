@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const orederSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    uesrId: {
+    userId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
@@ -21,17 +21,17 @@ const orederSchema = new mongoose.Schema(
           min: 1,
         },
         price: {
-          type: number,
+          type: Number,
           required: true,
         },
-        findPrice: {
-          type: number,
+        finalPrice: {
+          type: Number,
           required: true,
         },
       },
     ],
     totalPrice: {
-      type: number,
+      type: Number,
       required: true,
     },
     address: {
@@ -39,7 +39,7 @@ const orederSchema = new mongoose.Schema(
       required: true,
     },
     phone: {
-      type: number,
+      type: Number,
       required: true,
     },
     coupon: {
@@ -60,7 +60,7 @@ const orederSchema = new mongoose.Schema(
     },
   },
   {
-    timeseries: true,
+   timestamps: true
   }
 );
-export const OederModel = mongoose.model("Order", orederSchema);
+export const orderModel = mongoose.model("Order", orderSchema);
