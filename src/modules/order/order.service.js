@@ -5,20 +5,31 @@ import {
 } from "../../utils/pagination/pagination.js";
 import { clearCart, getCart } from "../cart/cart.data.js";
 import * as orderData from "./order.data.js";
+import { findCouponByCode } from "../coupon/coupn.data.js";
 
 export const createOrder = async (
   userId,
   address,
   phone,
   payment,
-  coupon = null
+  couponCode
 ) => {
   const cart = await getCart(userId);
 
   if (!cart || cart.products.length === 0) {
     throw new AppError("Cart is empty");
   }
-
+  let coupon = null;
+  if (couponCode) {
+    coupon = await findCouponByCode(couponCode);
+    if (!coupon || coupon.status !== "active") {
+      throw new AppError("Invalid coupon code", 400);
+    }
+    const now = new Date();
+    if (new Date(coupon.validfrom) < now || new Date(coupon.validto) > now) {
+      throw new AppError("Coupon code has expired", 400);
+    }
+  }
   let totalPrice = 0;
   const products = cart.products.map((item) => {
     const total = item.price * item.qnt;
@@ -31,6 +42,10 @@ export const createOrder = async (
     };
   });
 
+  if (coupon) {
+    totalPrice -= coupon.discount;
+    if (totalPrice < 0) totalPrice = 0;
+  }
   const order = await orderData.createOrder({
     userId,
     product: products,
@@ -38,7 +53,7 @@ export const createOrder = async (
     address,
     phone,
     payment,
-    coupon,
+    coupon: coupon._id,
   });
 
   await clearCart(userId);
@@ -61,7 +76,7 @@ export const getUserOrder = async (userId, orderId) => {
     throw new AppError("No order found for this user", 404);
   }
   return { message: "success", oreder };
-}
+};
 export const getAllOrders = async (status, skip, page, limit) => {
   const ordersData = await orderData.getAllOrders(status, skip, limit);
   if (!ordersData.orders.length) {

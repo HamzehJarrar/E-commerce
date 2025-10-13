@@ -12,7 +12,9 @@ router.post(
   asyncHandler(controller.register)
 );
 
-router.post("/login", validate(schema.login), asyncHandler(controller.login));
+router.post("/login", 
+  // validate(schema.login), 
+  asyncHandler(controller.login));
 
 router.post(
   "/confirm-email",

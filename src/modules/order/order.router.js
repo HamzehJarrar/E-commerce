@@ -10,6 +10,7 @@ const router = Router();
 router.post(
   "/",
   authMiddleware([Roles.USER]),
+  validate(schema.createOrder),
   asyncHandler(controller.createOrder)
 );
 
@@ -28,9 +29,8 @@ router.get(
 router.get(
   "/:id",
   authMiddleware([Roles.USER]),
+  validate(schema.getById),
   asyncHandler(controller.getUserOrder)
 );
-
-
 
 export default router;
