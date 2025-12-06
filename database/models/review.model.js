@@ -2,24 +2,23 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    uesrId: {
-      type: mongoose.Types.ObjectId,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     productId: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       required: true,
     },
-    Comment: {
+    comment: {
       type: String,
       required: true,
       trim: true,
     },
   },
-  {
-    timeseries: true,
-  }
+  { timestamps: true }
 );
+
 export const ReviewModel = mongoose.model("Review", reviewSchema);

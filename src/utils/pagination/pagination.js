@@ -10,6 +10,7 @@ export const getPaginationData = (data, page, limit) => {
   const totalPages = Math.ceil(count / limit);
   return {
     pagination: {
+      data,
       totalItems: count,
       totalPages,
       currentPage: page,

@@ -7,6 +7,7 @@ import cartRouter from "../modules/cart/cart.router.js";
 import favoritRouter from "../modules/favorit/favorit.router.js";
 import orderRouter from "../modules/order/order.router.js";
 import couponRouter from "../modules/coupon/coupn.router.js";
+import reviewRouter from "../modules/reviews/reviews.router.js";
 const init = (express, app) => {
   app.use(express.json());
   app.use("/uploads", express.static("uploads"));
@@ -18,6 +19,7 @@ const init = (express, app) => {
   app.use("/api/favorites", favoritRouter);
   app.use("/api/orders", orderRouter);
   app.use("/api/coupons", couponRouter);
+  app.use("/api/reviews", reviewRouter);
   app.use(globalErrorHandler);
 };
 export default init;
